@@ -1,0 +1,11 @@
+version: "3.4"
+
+services:
+  mubier:
+    image: mubier
+    build:
+      context: .
+      target: application
+    ports:
+      - "8002:8002"
+    container_name: mubier_app

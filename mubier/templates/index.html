@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>mubier!</title>
+  <meta name="description" content="simple tool for quick look most liked mubi movie on the show.">
+  <meta name="author" content="Efe Öge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style type="text/css">
+		body {
+			padding-top: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
+			
+		}
+		h2 {
+			font-size: 20px;
+			padding: 10px;
+		}
+		img {
+			width: 400px;
+			padding: 10px;
+		}
+		p {
+			max-width: 500px;
+		}
+		button {
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+		i {
+			font-size: 40px;
+		}
+		
+	</style>
+  
+</head>
+<body>
+  	<div class="d-flex justify-content-center">
+	  <h1>{{name}}</h1>
+	</div>
+	<div class="d-flex justify-content-center">
+		<img src="{{image_url}}">
+	</div>
+  	<div class="d-flex justify-content-center">
+	  <h2>{{rating_average}}/10 ({{rating_count}} ratings)</h2>
+	</div>
+	<div class="d-flex justify-content-center">
+	  <p>{{description}}</p>
+	</div>
+	<div class="d-flex justify-content-center">
+		<a class=class="btn btn-danger" href="{{next_url}}"><i class="fa fa-arrow-right" style="font-size: 50px;"></i></a>
+	</div>
+
+</body>
+</html>

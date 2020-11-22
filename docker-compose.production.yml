@@ -1,0 +1,8 @@
+version: "3.4"
+
+services:
+  mubier:
+    user: ${CONTAINER_UID}:${CONTAINER_GID}
+    command: gunicorn --bind 0.0.0.0:8002 app:app
+    working_dir: /mubier/mubier
+

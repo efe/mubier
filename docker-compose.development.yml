@@ -1,0 +1,12 @@
+version: "3.4"
+
+services:
+  mubier:
+    image: mubier
+    build:
+      context: .
+      target: application_development
+    volumes:
+      - ".:/mubier"
+    restart: unless-stopped
+    tty: true
