@@ -13,4 +13,6 @@ while True:
         movies = fetch_movies_of_today()
         db.set(today, movies)
 
+    print("Sleeping for 5 minutes.")
     time.sleep(60*5)
+    print("Waking up.")
