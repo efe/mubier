@@ -9,15 +9,9 @@ def get_proxy_address():
     # https://www.proxynova.com/proxy-server-list/country-tr/
     # https://spys.one/free-proxy-list/TR/
     addresses = [
-        "88.255.60.220:8080",
         "195.175.209.194:8080",
-        "95.0.66.71:1981",
-        "91.93.135.113:8080",
-        "176.236.99.204:8080",
-        "91.93.156.130:8080",
-        "176.235.182.79:8080",
-        "95.0.66.73:8080",
-        "80.253.247.42:3838"
+        "212.175.189.86:8080",
+        "212.175.189.86:8080",
     ]
     return random.choice(addresses)
 
@@ -26,30 +20,34 @@ def get_today():
     return datetime.now().strftime("%Y-%m-%d")
 
 
-def get_soup(url):
-    try:
-        proxy_address = get_proxy_address()
-        proxies = {
-            "http": proxy_address,
-            "https": proxy_address,
-        }
-        response = requests.get(url, proxies=proxies)
-    except requests.exceptions.ProxyError:
-        print(f"{url} - Proxy fail: {proxy_address}")
-        return get_soup(url)
-    print(f"{url} - {response.status_code}")
+def get_soup(url, use_turkish_proxies):
+    if use_turkish_proxies:
+        try:
+            proxy_address = get_proxy_address()
+            proxies = {
+                "http": proxy_address,
+                "https": proxy_address,
+            }
+            response = requests.get(url, proxies=proxies)
+            print(f"{url} - {response.status_code} - Proxy: {proxy_address}")
+        except requests.exceptions.ProxyError:
+            print(f"{url} - Proxy fail: {proxy_address}")
+            return get_soup(url, use_turkish_proxies)
+    else:
+        response = requests.get(url)
+        print(f"{url} - {response.status_code}")
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError:
         time.sleep(10)
-        return get_soup(url)
+        return get_soup(url, use_turkish_proxies)
 
     return BeautifulSoup(response.text, "html.parser")
 
 
 def fetch_movies_of_today():
     url = 'https://mubi.com/showing'
-    soup = get_soup(url)
+    soup = get_soup(url, use_turkish_proxies=True)
 
     movies = []
 
@@ -60,7 +58,7 @@ def fetch_movies_of_today():
     for article in articles:
         path = article.find_all('a')[0]['href']
         url = 'https://mubi.com' + path
-        soup = get_soup(url)
+        soup = get_soup(url, use_turkish_proxies=False)
 
         reference_html_tag_of_rating = soup.find("div", text="/10")
 
