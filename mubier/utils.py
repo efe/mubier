@@ -32,6 +32,7 @@ def get_soup(url, use_turkish_proxies):
                 "http": proxy_address,
                 "https": proxy_address,
             }
+            print(f"Going to request with {proxy_address} proxy.")
             response = requests.get(url, proxies=proxies)
             print(f"{url} - {response.status_code} - Proxy: {proxy_address}")
         except requests.exceptions.ProxyError:
