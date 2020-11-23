@@ -9,12 +9,3 @@ services:
     ports:
       - "8002:8002"
     container_name: mubier_app
-  fetcher:
-    user: ${CONTAINER_UID}:${CONTAINER_GID}
-    image: mubier
-    working_dir: /mubier/mubier
-    command: python fetch.py
-    container_name: mubier_fetcher
-    restart: on-failure
-    depends_on:
-      - mubier
