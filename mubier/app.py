@@ -1,6 +1,6 @@
 import pickledb
 from flask import Flask, request, render_template
-from utils import get_today, fetch_movies_of_today
+from utils import get_today, get_yesterday
 
 app = Flask(__name__)
 
@@ -13,8 +13,9 @@ def index():
     movies = db.get(today)
 
     if movies is False:
-        movies = fetch_movies_of_today()
-        db.set(today, movies)
+        # serve cold data.
+        yesterday = get_yesterday()
+        movies = db.get(yesterday)
 
     order = int(request.args.get('order', 0))
     movie = movies[order]

@@ -2,9 +2,8 @@
 
 BASE_DOCKER_COMPOSE_FILE="./docker-compose.yml"
 DEV_DOCKER_COMPOSE_FILE="./docker-compose.production.yml"
-SERVICE_NAME="mubier"
 
 CONTAINER_UID=$(id -u) CONTAINER_GID=$(id -g) docker-compose -f ${BASE_DOCKER_COMPOSE_FILE} -f ${DEV_DOCKER_COMPOSE_FILE} stop
 CONTAINER_UID=$(id -u) CONTAINER_GID=$(id -g) docker-compose -f ${BASE_DOCKER_COMPOSE_FILE} -f ${DEV_DOCKER_COMPOSE_FILE} rm --force
 CONTAINER_UID=$(id -u) CONTAINER_GID=$(id -g) docker-compose -f ${BASE_DOCKER_COMPOSE_FILE} -f ${DEV_DOCKER_COMPOSE_FILE} up -d --remove-orphans --build
-CONTAINER_UID=$(id -u) CONTAINER_GID=$(id -g) docker-compose -f "./docker-compose.yml" -f "./docker-compose.production.yml" start mubier
+CONTAINER_UID=$(id -u) CONTAINER_GID=$(id -g) docker-compose -f "./docker-compose.yml" -f "./docker-compose.production.yml" start mubier fetcher

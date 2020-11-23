@@ -5,4 +5,13 @@ services:
     user: ${CONTAINER_UID}:${CONTAINER_GID}
     command: gunicorn --bind 0.0.0.0:8002 app:app
     working_dir: /mubier/mubier
+  fetcher:
+    user: ${CONTAINER_UID}:${CONTAINER_GID}
+    image: mubier
+    working_dir: /mubier/mubier
+    command: python fetch.py
+    container_name: mubier_fetcher
+    restart: on-failure
+    depends_on:
+      - mubier
 

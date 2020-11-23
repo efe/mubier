@@ -3,7 +3,8 @@ import requests
 import random
 
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timedelta
+
 
 def get_proxy_address():
     # https://www.proxynova.com/proxy-server-list/country-tr/
@@ -18,6 +19,9 @@ def get_proxy_address():
 
 def get_today():
     return datetime.now().strftime("%Y-%m-%d")
+
+def get_yesterday():
+    return (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 
 
 def get_soup(url, use_turkish_proxies):
