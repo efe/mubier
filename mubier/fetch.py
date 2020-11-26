@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pickledb
 import time
 from utils import fetch_movies_of_today, get_today
@@ -13,6 +15,6 @@ while True:
         movies = fetch_movies_of_today()
         db.set(today, movies)
 
-    print("Sleeping for 5 minutes.")
+    print(f"Sleeping for 5 minutes. ({datetime.now().isoformat()})")
     time.sleep(60*5)
-    print("Waking up.")
+    print(f"Waking up. ({datetime.now().isoformat()})")
