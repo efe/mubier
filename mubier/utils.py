@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
 
-def get_proxy_address():
+def get_turkish_proxy_address():
     # https://www.proxynova.com/proxy-server-list/country-tr/
     # https://spys.one/free-proxy-list/TR/
     addresses = [
@@ -24,10 +24,10 @@ def get_yesterday():
     return (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 
 
-def get_soup(url, use_turkish_proxies):
-    if use_turkish_proxies:
+def get_soup(url, use_proxies):
+    if use_proxies:
         try:
-            proxy_address = get_proxy_address()
+            proxy_address = get_turkish_proxy_address()
             proxies = {
                 "http": proxy_address,
                 "https": proxy_address,
@@ -37,7 +37,7 @@ def get_soup(url, use_turkish_proxies):
             print(f"{url} - {response.status_code} - Proxy: {proxy_address}")
         except requests.exceptions.ProxyError:
             print(f"{url} - Proxy fail: {proxy_address}")
-            return get_soup(url, use_turkish_proxies)
+            return get_soup(url, use_proxies)
     else:
         response = requests.get(url)
         print(f"{url} - {response.status_code}")
@@ -45,14 +45,14 @@ def get_soup(url, use_turkish_proxies):
         response.raise_for_status()
     except requests.exceptions.HTTPError:
         time.sleep(10)
-        return get_soup(url, use_turkish_proxies)
+        return get_soup(url, use_proxies)
 
     return BeautifulSoup(response.text, "html.parser")
 
 
 def fetch_movies_of_today():
     url = 'https://mubi.com/showing'
-    soup = get_soup(url, use_turkish_proxies=True)
+    soup = get_soup(url, use_proxies=True)
 
     movies = []
 
@@ -63,7 +63,7 @@ def fetch_movies_of_today():
     for article in articles:
         path = article.find_all('a')[0]['href']
         url = 'https://mubi.com' + path
-        soup = get_soup(url, use_turkish_proxies=False)
+        soup = get_soup(url, use_proxies=False)
 
         reference_html_tag_of_rating = soup.find("div", text="/10")
 
@@ -83,6 +83,7 @@ def fetch_movies_of_today():
         print(item)
         movies.append(item)
 
-    movies = (sorted(movies, key=lambda k: k['rating_average']))
+    movies = sorted(movies, key=lambda k: k['rating_count'])
+    movies = sorted(movies, key=lambda k: k['rating_average'])
     movies = list(reversed(movies))
     return movies
