@@ -1,6 +1,7 @@
 import time
 import requests
 import random
+import pytz
 
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
@@ -17,11 +18,13 @@ def get_turkish_proxy_address():
     return random.choice(addresses)
 
 
-def get_today():
-    return datetime.now().strftime("%Y-%m-%d")
+def get_today(timezone="Europe/Istanbul"):
+    tz = pytz.timezone(timezone)
+    return datetime.now().astimezone(tz).strftime("%Y-%m-%d")
 
-def get_yesterday():
-    return (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+def get_yesterday(timezone="Europe/Istanbul"):
+    tz = pytz.timezone(timezone)
+    return (datetime.now() - timedelta(days=1)).astimezone(tz).strftime("%Y-%m-%d")
 
 
 def get_soup(url, use_proxies):
