@@ -9,6 +9,7 @@ services:
     ports:
       - "8002:8002"
     container_name: mubier_app
+    restart: on-failure
   fetcher:
     user: ${CONTAINER_UID}:${CONTAINER_GID}
     image: mubier
