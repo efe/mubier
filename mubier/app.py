@@ -1,6 +1,15 @@
 import pickledb
 from flask import Flask, request, render_template
 from utils import get_today, get_yesterday
+from sentry_sdk.integrations.flask import FlaskIntegration
+
+
+sentry_sdk.init(
+    dsn="https://9e951a2256c847219b8f059806d497bf@o93698.ingest.sentry.io/5541173",
+    integrations=[FlaskIntegration()],
+    traces_sample_rate=1.0
+)
+
 
 app = Flask(__name__)
 
