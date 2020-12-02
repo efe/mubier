@@ -1,4 +1,6 @@
 import pickledb
+import sentry_sdk
+
 from flask import Flask, request, render_template
 from utils import get_today, get_yesterday
 from sentry_sdk.integrations.flask import FlaskIntegration
